@@ -1,0 +1,40 @@
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+public class Client{
+    public static void main(String args[]) throws Exception{
+        Socket s=new Socket("localhost", 5000);
+        DataInputStream dis= new DataInputStream(s.getInputStream());
+        DataOutputStream dos= new DataOutputStream(s.getOutputStream());
+        Scanner sc=new Scanner(System.in);
+        Random rand=new Random();
+
+        System.out.println ("Enter the matrix order: ");
+        int n=sc.nextInt();
+        int[][] matrix=new int[n][n];
+        System.out.println ("The matrix is: ");
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++){
+                matrix[i][j] = rand.nextInt(50)+1;
+                System.out.println (matrix[i][j] );
+            }
+            System.out.println ();
+        }
+
+        dos.writeInt(n);
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++){
+                dos.writeInt(matrix[i][j]);
+            }
+        }
+
+        String result = dis.readUTF();
+        System.out.println ("The matrix is " + result);
+
+        s.close();
+        dis.close();
+        dos.close();
+        sc.close();
+    }
+}
