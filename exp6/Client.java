@@ -1,7 +1,7 @@
 import java.net.*;
 import java.util.*;
 
-public class Client{
+public class Client6{
   public static void main (String args[]) throws Exception{
 
     DatagramSocket ss=new DatagramSocket();
@@ -9,12 +9,15 @@ public class Client{
     System.out.println ("Enter the string: ");
     String msg= sc.nextLine();
     byte[] data= msg.getBytes();
-    DatagramPacket sendData=new DatagramPacket (data, data.length(), InetAddress.getByName("localhost"), 5000);
+    DatagramPacket sendData=new DatagramPacket (data, data.length, InetAddress.getByName("localhost"), 5000);
     ss.send(sendData);
 
-    byte[] b=new Byte[1024];
-    DatagramPacket recieveData=new DatagramPacket(b, b.length);
+    byte[] b=new byte[1024];
+    DatagramPacket receiveData=new DatagramPacket(b, b.length);
     ss.receive(receiveData);
+
+    String s=new String(receiveData.getData(), 0, receiveData.getLength());
+    System.out.println (s);
 
     ss.close();
     sc.close();
