@@ -1,7 +1,7 @@
 import java.net.*;
 import java.util.*;
 
-public class Client6{
+public class Client{
   public static void main (String args[]) throws Exception{
 
     DatagramSocket ss=new DatagramSocket();
